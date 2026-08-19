@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffe3e3, #ffd1d1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            min-height: 320px;
+        }
+
+        h1 {
+            color: #d63031;
+            font-size: clamp(1.7rem, 7vw, 2.2rem);
+            margin: 15px 0 30px;
+        }
+
+        .heart {
+            font-size: 3rem;
+            animation: beat 0.6s infinite alternate;
+        }
+
+        /* Button area */
+        .buttons {
+            position: relative;
+            width: 100%;
+            height: 130px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 13px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        #yesBtn {
+            position: absolute;
+            left: 50%;
+            top: 15px;
+            transform: translateX(-110%);
+            background-color: #2ecc71;
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+            transition: transform 0.15s ease;
+        }
+
+        #yesBtn:hover {
+            transform: translateX(-110%) scale(1.08);
+        }
+
+        #noBtn {
+            position: absolute;
+            left: 50%;
+            top: 15px;
+            transform: translateX(10%);
+            background-color: #e74c3c;
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            user-select: none;
+            transition: left 0.15s ease, top 0.15s ease;
+        }
+
+        /* Letter */
+        .letter-screen {
+            display: none;
+        }
+
+        .letter-text {
+            color: #4a4a4a;
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-line;
+            background: #fff9f9;
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 5px solid #d63031;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        @keyframes beat {
+            to {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Extra adjustments for small phones */
+        @media (max-width: 400px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            button {
+                padding: 12px 22px;
+                font-size: 1rem;
+            }
+
+            .buttons {
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="card">
+
+        <!-- Proposal Screen -->
+        <div id="proposalScreen">
+
+            <div class="heart">💝</div>
+
+            <h1 id="questionText">
+                Will you be my Valentine?
+            </h1>
+
+            <div class="buttons" id="buttonArea">
+                <button id="yesBtn" onclick="showLetter()">Yes!</button>
+                <button id="noBtn">No</button>
+            </div>
+
+        </div>
+
+        <!-- Success Screen -->
+        <div id="letterScreen" class="letter-screen">
+
+            <div class="heart">💖</div>
+
+            <h1 style="color: #2ecc71;">
+                YAY! 🥰
+            </h1>
+
+            <div class="letter-text" id="letterContent"></div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // =========================
+        // CUSTOMIZE HERE
+        // =========================
+
+        const customQuestion = "Will you forgive me?";
+
+        const customLetter =
+`Dear Ayumi,
+
+I'm really really sorry sa mga kasalanan ko for today, I know naiinis ka cuz I've done this way too late
+an I'm really sorry for that. I'm not mad or napipilitan when it comes to you, sorrry mahal ko sana mapatawad mo
+na ako sa mga kasalanan ko today and sorry if I had done this way too late. I love youu and I miss you:)
+
+Love always,
+Yoj`;
+
+
+        // =========================
+        // APPLY TEXT
+        // =========================
+
+        document.getElementById("questionText").innerText = customQuestion;
+        document.getElementById("letterContent").innerText = customLetter;
+
+
+        // =========================
+        // NO BUTTON
+        // =========================
+
+        const noBtn = document.getElementById("noBtn");
+        const buttonArea = document.getElementById("buttonArea");
+
+        function moveButton() {
+
+            const areaWidth = buttonArea.clientWidth;
+            const areaHeight = buttonArea.clientHeight;
+
+            const buttonWidth = noBtn.offsetWidth;
+            const buttonHeight = noBtn.offsetHeight;
+
+            const margin = 5;
+
+            const maxX = areaWidth - buttonWidth - margin;
+            const maxY = areaHeight - buttonHeight - margin;
+
+            const randomX =
+                Math.max(
+                    margin,
+                    Math.random() * maxX
+                );
+
+            const randomY =
+                Math.max(
+                    margin,
+                    Math.random() * maxY
+                );
+
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+            noBtn.style.transform = "none";
+        }
+
+
+        // Works on both computer and mobile
+        noBtn.addEventListener("mouseenter", moveButton);
+        noBtn.addEventListener("touchstart", function(event) {
+            event.preventDefault();
+            moveButton();
+        });
+
+        noBtn.addEventListener("click", function(event) {
+            event.preventDefault();
+            moveButton();
+        });
+
+
+        // =========================
+        // YES BUTTON
+        // =========================
+
+        function showLetter() {
+
+            document.getElementById("proposalScreen").style.display = "none";
+
+            document.getElementById("letterScreen").style.display = "block";
+        }
+
+    </script>
+
+</body>
+</html>
