@@ -1,0 +1,630 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Bouquet For My Babygirl</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #ffe4ec, #fff1f5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    color: #5a3a42;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    padding: 25px 18px;
+    border-radius: 25px;
+    box-shadow: 0 10px 35px rgba(120, 50, 70, 0.15);
+    text-align: center;
+}
+
+h1 {
+    margin: 5px 0 8px;
+    color: #d94f70;
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+}
+
+.subtitle {
+    margin: 0 auto 20px;
+    font-size: 0.95rem;
+    color: #87636c;
+}
+
+/* =========================
+   FLOWER SELECTION
+========================= */
+
+.garden {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px auto;
+    max-width: 360px;
+}
+
+.flower {
+    min-height: 100px;
+    border: none;
+    border-radius: 18px;
+    background: #fff7fa;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flower:hover {
+    transform: translateY(-5px);
+    background: #ffeaf0;
+}
+
+.flower:active {
+    transform: scale(0.92);
+}
+
+.flower.picked {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* =========================
+   CSS FLOWERS
+========================= */
+
+.flower-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+}
+
+/* Flower Colors */
+
+.pink {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd166 0 8px, transparent 9px),
+        radial-gradient(circle at 50% 15%, #ff8fab 0 12px, transparent 13px),
+        radial-gradient(circle at 15% 50%, #ff8fab 0 12px, transparent 13px),
+        radial-gradient(circle at 85% 50%, #ff8fab 0 12px, transparent 13px),
+        radial-gradient(circle at 50% 85%, #ff8fab 0 12px, transparent 13px);
+}
+
+.red {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd166 0 8px, transparent 9px),
+        radial-gradient(circle at 50% 15%, #e74c5b 0 12px, transparent 13px),
+        radial-gradient(circle at 15% 50%, #e74c5b 0 12px, transparent 13px),
+        radial-gradient(circle at 85% 50%, #e74c5b 0 12px, transparent 13px),
+        radial-gradient(circle at 50% 85%, #e74c5b 0 12px, transparent 13px);
+}
+
+.yellow {
+    background:
+        radial-gradient(circle at 50% 50%, #8d5524 0 8px, transparent 9px),
+        radial-gradient(circle at 50% 15%, #ffd166 0 12px, transparent 13px),
+        radial-gradient(circle at 15% 50%, #ffd166 0 12px, transparent 13px),
+        radial-gradient(circle at 85% 50%, #ffd166 0 12px, transparent 13px),
+        radial-gradient(circle at 50% 85%, #ffd166 0 12px, transparent 13px);
+}
+
+.purple {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd166 0 8px, transparent 9px),
+        radial-gradient(circle at 50% 15%, #a66cff 0 12px, transparent 13px),
+        radial-gradient(circle at 15% 50%, #a66cff 0 12px, transparent 13px),
+        radial-gradient(circle at 85% 50%, #a66cff 0 12px, transparent 13px),
+        radial-gradient(circle at 50% 85%, #a66cff 0 12px, transparent 13px);
+}
+
+.flower-name {
+    margin-top: 7px;
+    font-size: 0.72rem;
+    color: #9b737d;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+    display: none;
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff5f8;
+    border-radius: 15px;
+    border-left: 4px solid #e36a87;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    animation: appear 0.35s ease;
+}
+
+/* =========================
+   BOUQUET
+========================= */
+
+.bouquet-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #efb7c5;
+}
+
+.bouquet {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+/* Wrapping paper */
+
+.wrapper {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 110px;
+    background: linear-gradient(135deg, #f7c9d5, #f3aabd);
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+    border-radius: 8px;
+    z-index: 1;
+}
+
+/* Ribbon */
+
+.ribbon {
+    position: absolute;
+    bottom: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 18px;
+    background: #d94f70;
+    border-radius: 10px;
+    z-index: 5;
+}
+
+/* Stems */
+
+.stems {
+    position: absolute;
+    width: 100%;
+    height: 150px;
+    bottom: 55px;
+    left: 0;
+}
+
+.stem {
+    position: absolute;
+    width: 5px;
+    height: 120px;
+    background: #5ba85a;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom;
+    border-radius: 5px;
+}
+
+/* Bouquet Flowers */
+
+.bouquet-flower {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    z-index: 3;
+    transform: translateX(-50%);
+}
+
+.bouquet-flower.pink {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd166 0 7px, transparent 8px),
+        radial-gradient(circle at 50% 15%, #ff8fab 0 11px, transparent 12px),
+        radial-gradient(circle at 15% 50%, #ff8fab 0 11px, transparent 12px),
+        radial-gradient(circle at 85% 50%, #ff8fab 0 11px, transparent 12px),
+        radial-gradient(circle at 50% 85%, #ff8fab 0 11px, transparent 12px);
+}
+
+.bouquet-flower.red {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd166 0 7px, transparent 8px),
+        radial-gradient(circle at 50% 15%, #e74c5b 0 11px, transparent 12px),
+        radial-gradient(circle at 15% 50%, #e74c5b 0 11px, transparent 12px),
+        radial-gradient(circle at 85% 50%, #e74c5b 0 11px, transparent 12px),
+        radial-gradient(circle at 50% 85%, #e74c5b 0 11px, transparent 12px);
+}
+
+.bouquet-flower.yellow {
+    background:
+        radial-gradient(circle at 50% 50%, #8d5524 0 7px, transparent 8px),
+        radial-gradient(circle at 50% 15%, #ffd166 0 11px, transparent 12px),
+        radial-gradient(circle at 15% 50%, #ffd166 0 11px, transparent 12px),
+        radial-gradient(circle at 85% 50%, #ffd166 0 11px, transparent 12px),
+        radial-gradient(circle at 50% 85%, #ffd166 0 11px, transparent 12px);
+}
+
+.bouquet-flower.purple {
+    background:
+        radial-gradient(circle at 50% 50%, #ffd166 0 7px, transparent 8px),
+        radial-gradient(circle at 50% 15%, #a66cff 0 11px, transparent 12px),
+        radial-gradient(circle at 15% 50%, #a66cff 0 11px, transparent 12px),
+        radial-gradient(circle at 85% 50%, #a66cff 0 11px, transparent 12px),
+        radial-gradient(circle at 50% 85%, #a66cff 0 11px, transparent 12px);
+}
+
+/* =========================
+   FINAL MESSAGE
+========================= */
+
+.finish {
+    display: none;
+    margin-top: 15px;
+    padding: 18px;
+    background: linear-gradient(135deg, #fff0f4, #ffe1e9);
+    border-radius: 18px;
+    animation: appear 0.5s ease;
+}
+
+.finish h2 {
+    color: #d94f70;
+    margin: 0 0 8px;
+    font-size: 1.4rem;
+}
+
+.finish p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.reset {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background: #d94f70;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.empty {
+    color: #ad8c94;
+    font-size: 0.9rem;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Small phones */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 22px 12px;
+    }
+
+    .garden {
+        gap: 9px;
+    }
+
+    .flower {
+        min-height: 90px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>A Bouquet For My Babygirl</h1>
+
+    <p class="subtitle">
+        Pick the flowers you'd like in your bouquet 💐
+    </p>
+
+    <!-- FLOWERS -->
+
+    <div class="garden">
+
+        <button class="flower" data-color="yellow"
+            data-message="You make my days feel a little better when I'm with you. 🌻">
+
+            <div class="flower-icon yellow"></div>
+
+            <span class="flower-name">
+                Sunflower
+            </span>
+
+        </button>
+
+
+        <button class="flower" data-color="pink"
+            data-message="I always try to remember every little detail about you. 🌷">
+
+            <div class="flower-icon pink"></div>
+
+            <span class="flower-name">
+                Tulip
+            </span>
+
+        </button>
+
+
+        <button class="flower" data-color="pink"
+            data-message="Even the simplest days feels better with u. 🌸">
+
+            <div class="flower-icon pink"></div>
+
+            <span class="flower-name">
+                Cherry Blossom
+            </span>
+
+        </button>
+
+
+        <button class="flower" data-color="red"
+            data-message="You're the most very very beautiful my babyy. 🌹">
+
+            <div class="flower-icon red"></div>
+
+            <span class="flower-name">
+                Rose
+            </span>
+
+        </button>
+
+
+        <button class="flower" data-color="yellow"
+            data-message="Thank you for being someone I can smile with.(even tho nag-aaway hehe)🌼">
+
+            <div class="flower-icon yellow"></div>
+
+            <span class="flower-name">
+                Daisy
+            </span>
+
+        </button>
+
+
+        <button class="flower" data-color="purple"
+            data-message="No matter how busy things get, you're still special to me. 💜">
+
+            <div class="flower-icon purple"></div>
+
+            <span class="flower-name">
+                Lavender
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div class="message" id="message"></div>
+
+
+    <!-- BOUQUET -->
+
+    <div class="bouquet-section">
+
+        <strong>Your Bouquet 💐</strong>
+
+        <div class="bouquet" id="bouquet">
+
+            <span class="empty" id="empty">
+                Your flowers will appear here...
+            </span>
+
+            <div class="stems" id="stems"></div>
+
+            <div class="wrapper"></div>
+
+            <div class="ribbon"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL MESSAGE -->
+
+    <div class="finish" id="finish">
+
+        <h2>Look at that bouquet! 🥹💐</h2>
+
+        <p>
+            I made this digital bouquet for you as a way of
+            apologizing for making you mad my babygirl. I promise
+            to make it up to you and we'll go out and get that
+            milktea that you've been craving my babygirl. I'm really
+            sorry for all the things that happened today, I hope you can
+            forgive me and I'm really sorry baby.. I hope we can stop fighting
+            even just for this night, I love youuu my dearest ayumiii:)
+        </p>
+
+        <button class="reset" onclick="resetBouquet()">
+            Make Another Bouquet
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const flowers = document.querySelectorAll(".flower");
+const bouquet = document.getElementById("bouquet");
+const stems = document.getElementById("stems");
+const message = document.getElementById("message");
+const finish = document.getElementById("finish");
+const empty = document.getElementById("empty");
+
+let pickedFlowers = [];
+
+
+flowers.forEach(flower => {
+
+    flower.addEventListener("click", () => {
+
+        if (flower.classList.contains("picked")) {
+            return;
+        }
+
+        flower.classList.add("picked");
+
+        const color = flower.dataset.color;
+        const flowerMessage = flower.dataset.message;
+
+        pickedFlowers.push(color);
+
+        message.textContent = flowerMessage;
+        message.style.display = "block";
+
+        updateBouquet();
+
+        if (pickedFlowers.length === flowers.length) {
+            finish.style.display = "block";
+        }
+
+    });
+
+});
+
+
+function updateBouquet() {
+
+    empty.style.display = "none";
+
+    stems.innerHTML = "";
+
+    // Positions for a natural bouquet shape
+    const positions = [
+        { x: 50, y: 5, angle: 0 },
+        { x: 32, y: 22, angle: -12 },
+        { x: 68, y: 22, angle: 12 },
+        { x: 20, y: 48, angle: -20 },
+        { x: 80, y: 48, angle: 20 },
+        { x: 50, y: 38, angle: 0 }
+    ];
+
+
+    pickedFlowers.forEach((color, index) => {
+
+        const position = positions[index];
+
+
+        // Create stem
+
+        const stem = document.createElement("div");
+
+        stem.className = "stem";
+
+        stem.style.left = position.x + "%";
+
+        stem.style.transform =
+            `rotate(${position.angle}deg)`;
+
+        stems.appendChild(stem);
+
+
+        // Create flower
+
+        const flowerHead =
+            document.createElement("div");
+
+        flowerHead.className =
+            "bouquet-flower " + color;
+
+        flowerHead.style.left =
+            position.x + "%";
+
+        flowerHead.style.top =
+            position.y + "px";
+
+        flowerHead.style.animation =
+            "appear 0.4s ease both";
+
+        bouquet.appendChild(flowerHead);
+
+    });
+
+}
+
+
+function resetBouquet() {
+
+    pickedFlowers = [];
+
+    flowers.forEach(flower => {
+        flower.classList.remove("picked");
+    });
+
+
+    document
+        .querySelectorAll(".bouquet-flower")
+        .forEach(flower => flower.remove());
+
+
+    stems.innerHTML = "";
+
+    empty.style.display = "block";
+
+    message.style.display = "none";
+
+    finish.style.display = "none";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
+```
