@@ -1,0 +1,359 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Bouquet For My Babygirl</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 20px;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #ffe4ec, #fff1f5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        color: #5a3a42;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 480px;
+        background: white;
+        padding: 25px 18px;
+        border-radius: 25px;
+        box-shadow: 0 10px 35px rgba(120, 50, 70, 0.15);
+        text-align: center;
+    }
+
+    h1 {
+        margin: 5px 0 8px;
+        color: #d94f70;
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+
+    .subtitle {
+        margin: 0 auto 20px;
+        font-size: 0.95rem;
+        color: #87636c;
+    }
+
+    /* Flower area */
+    .garden {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 20px auto;
+        max-width: 360px;
+    }
+
+    .flower {
+        min-height: 95px;
+        border: none;
+        border-radius: 18px;
+        background: #fff7fa;
+        font-size: 2.5rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    .flower:hover {
+        transform: translateY(-5px) scale(1.04);
+        background: #ffeaf0;
+    }
+
+    .flower:active {
+        transform: scale(0.92);
+    }
+
+    .flower.picked {
+        opacity: 0.45;
+        cursor: default;
+        transform: none;
+    }
+
+    .flower-name {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.72rem;
+        color: #9b737d;
+    }
+
+    /* Message */
+    .message {
+        display: none;
+        margin: 20px 0;
+        padding: 15px;
+        background: #fff5f8;
+        border-radius: 15px;
+        border-left: 4px solid #e36a87;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        animation: appear 0.35s ease;
+    }
+
+    /* Bouquet */
+    .bouquet-section {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px dashed #efb7c5;
+    }
+
+    .bouquet {
+        min-height: 100px;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
+        font-size: 2.4rem;
+    }
+
+    .empty {
+        font-size: 0.9rem;
+        color: #ad8c94;
+    }
+
+    .finish {
+        display: none;
+        margin-top: 15px;
+        padding: 18px;
+        background: linear-gradient(135deg, #fff0f4, #ffe1e9);
+        border-radius: 18px;
+        animation: appear 0.5s ease;
+    }
+
+    .finish h2 {
+        color: #d94f70;
+        margin: 0 0 8px;
+        font-size: 1.4rem;
+    }
+
+    .finish p {
+        margin: 0;
+        line-height: 1.5;
+        font-size: 0.95rem;
+    }
+
+    .reset {
+        margin-top: 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        background: #d94f70;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        touch-action: manipulation;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Small phones */
+    @media (max-width: 380px) {
+        body {
+            padding: 12px;
+        }
+
+        .container {
+            padding: 22px 12px;
+        }
+
+        .garden {
+            gap: 9px;
+        }
+
+        .flower {
+            min-height: 85px;
+            font-size: 2.1rem;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>A Bouquet For My Babygirl</h1>
+
+    <p class="subtitle">
+        Pick the flowers you'd like in your bouquet 💐
+    </p>
+
+    <div class="garden">
+
+        <button class="flower" data-message="You make my days feel a little better when I'm with you. 🌻">
+            🌻
+            <span class="flower-name">Sunflower</span>
+        </button>
+
+        <button class="flower" data-message="I always try to remember every little detail about you. 🌷">
+            🌷
+            <span class="flower-name">Tulip</span>
+        </button>
+
+        <button class="flower" data-message="Even the simplest days feels better with u. 🌸">
+            🌸
+            <span class="flower-name">Cherry Blossom</span>
+        </button>
+
+        <button class="flower" data-message="You're the most very very beautiful my babyy. 🌹">
+            🌹
+            <span class="flower-name">Rose</span>
+        </button>
+
+        <button class="flower" data-message="Thank you for being someone I can smile with.(even tho nag-aaway hehe)🌼">
+            🌼
+            <span class="flower-name">Daisy</span>
+        </button>
+
+        <button class="flower" data-message="No matter how busy things get, you're still special to me. 💜">
+            🪻
+            <span class="flower-name">Lavender</span>
+        </button>
+
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="bouquet-section">
+
+        <strong>Your Bouquet 💐</strong>
+
+        <div class="bouquet" id="bouquet">
+            <span class="empty">Your flowers will appear here...</span>
+        </div>
+
+    </div>
+
+    <div class="finish" id="finish">
+
+        <h2>Look at that bouquet! 🥹💐</h2>
+
+        <p>
+            I made this digital bouquet for you as a way of
+          apologizing for making you mad my babygirl. I promise
+          to make it up to you and we'll go out and get that
+          milktea that you've been craving my babygirl. I'm really
+          sorry for all the things that happened today, I hope you can
+          forgive me and I'm really sorry baby.. I hope we can stop fighting
+          even just for this night, I love youuu my dearest ayumiii:)
+        </p>
+
+        <button class="reset" onclick="resetBouquet()">
+            Make Another Bouquet
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const flowers = document.querySelectorAll(".flower");
+const bouquet = document.getElementById("bouquet");
+const message = document.getElementById("message");
+const finish = document.getElementById("finish");
+
+let pickedFlowers = [];
+
+flowers.forEach(flower => {
+
+    flower.addEventListener("click", () => {
+
+        // Prevent picking the same flower twice
+        if (flower.classList.contains("picked")) {
+            return;
+        }
+
+        flower.classList.add("picked");
+
+        const emoji = flower.textContent.trim().charAt(0);
+        const flowerMessage = flower.dataset.message;
+
+        pickedFlowers.push(emoji);
+
+        // Show message
+        message.textContent = flowerMessage;
+        message.style.display = "block";
+
+        // Update bouquet
+        updateBouquet();
+
+        // Show final message after all flowers are picked
+        if (pickedFlowers.length === flowers.length) {
+            finish.style.display = "block";
+        }
+
+    });
+
+});
+
+
+function updateBouquet() {
+
+    bouquet.innerHTML = "";
+
+    pickedFlowers.forEach((flower, index) => {
+
+        const span = document.createElement("span");
+
+        span.textContent = flower;
+
+        span.style.animation = `appear 0.3s ease ${index * 0.05}s both`;
+
+        bouquet.appendChild(span);
+
+    });
+
+}
+
+
+function resetBouquet() {
+
+    pickedFlowers = [];
+
+    flowers.forEach(flower => {
+        flower.classList.remove("picked");
+    });
+
+    bouquet.innerHTML =
+        '<span class="empty">Your flowers will appear here...</span>';
+
+    message.style.display = "none";
+
+    finish.style.display = "none";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+</script>
+
+</body>
+</html>
+```
